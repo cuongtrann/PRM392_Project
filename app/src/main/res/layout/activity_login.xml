@@ -8,7 +8,7 @@
     android:background="@drawable/sofa2"
     android:gravity="center"
     android:padding="16dp"
-    tools:context=".LoginActivity">
+    tools:context=".activities.LoginActivity">
 
         <TextView
             android:layout_width="wrap_content"

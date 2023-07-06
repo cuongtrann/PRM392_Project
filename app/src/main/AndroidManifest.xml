@@ -29,19 +29,19 @@
         </activity>
 
         <activity          
-            android:name=".ForgotPasswordActivity"
+            android:name=".activities.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".OrderSuccessActivity"
+            android:name=".activities.OrderSuccessActivity"
             android:exported="false" />
         <activity
-            android:name=".CheckoutActivity"
+            android:name=".activities.CheckoutActivity"
             android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".activities.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true" />
        
 
