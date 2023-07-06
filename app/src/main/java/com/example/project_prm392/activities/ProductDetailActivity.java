@@ -1,4 +1,4 @@
-package com.example.project_prm392.ProductDetailScreen;
+package com.example.project_prm392.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.project_prm392.R;
+import com.example.project_prm392.fragments.AdditionalInfoFragment;
+import com.example.project_prm392.fragments.DescriptionFragment;
+import com.example.project_prm392.adapters.ProductPagerAdapter;
+import com.example.project_prm392.fragments.ReviewFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class ProductDetailActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.project_prm392.ProductDetailScreen;
+package com.example.project_prm392.fragments;
 
 import android.os.Bundle;
 

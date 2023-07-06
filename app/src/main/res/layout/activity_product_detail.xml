@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ProductDetailScreen.ProductDetailActivity">
+    tools:context=".activities.ProductDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/header"
@@ -144,6 +144,7 @@
                     app:tabMode="fixed" />
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/view_pager"
+                        android:contentDescription="viewpager"
                         android:layout_width="match_parent"
                         android:layout_height="350dp" />
 
