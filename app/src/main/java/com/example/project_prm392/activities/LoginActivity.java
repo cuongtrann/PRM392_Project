@@ -30,6 +30,13 @@ public class LoginActivity extends AppCompatActivity {
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
         String password = ((EditText) findViewById(R.id.et_password)).getText().toString();
 
+        //authenticate
+        if(true){
+
+        }
+        else{
+
+        }
     }
 
     private void SetBtnSignUpOnClickEvent(){
