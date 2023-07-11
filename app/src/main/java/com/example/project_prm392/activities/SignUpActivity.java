@@ -15,12 +15,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
     EditText name, email, password, cfPassword;
     Button btnSignUp, btnLogin;
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
         name = findViewById(R.id.et_name);
         email = findViewById(R.id.et_email);
@@ -81,7 +88,19 @@ public class SignUpActivity extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(inputEmail, inputPassword).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                OnClickBtnLogin();
+                if(task.isSuccessful()){
+                    Map<String, Object> userData = new HashMap<>();
+                    userData.put("Name",task.getResult().getUser().getDisplayName());
+                    userData.put("Email",task.getResult().getUser().getEmail());
+                    userData.put("IsAdmin",false);
+                    firestore.collection("UserData").document(task.getResult().getUser().getUid())
+                            .set(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    OnClickBtnLogin();
+                                }
+                            });
+                }
             }
         });
     }

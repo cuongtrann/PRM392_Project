@@ -15,11 +15,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText email, password;
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
         email = findViewById(R.id.et_loginEmail);
         password = findViewById(R.id.et_loginPassword);
@@ -48,7 +53,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    //change to main activity
+                    firestore.collection("UserData")
+                            .document(task.getResult().getUser().getUid())
+                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    DocumentSnapshot document = task.getResult();
+                                    boolean isAdmin = (boolean)document.getData().get("IsAdmin");
+                                    if(isAdmin){
+                                        Toast.makeText(LoginActivity.this, "Login as admin", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        Toast.makeText(LoginActivity.this, "Login as user", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                 }
 
                 if(task.isCanceled()){
