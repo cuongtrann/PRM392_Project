@@ -1,14 +1,14 @@
 package com.example.project_prm392.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_prm392.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,7 +17,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -49,6 +48,16 @@ public class LoginActivity extends AppCompatActivity {
         String inputEmail = email.getText().toString();
         String inputPassword = password.getText().toString();
 
+        if(TextUtils.isEmpty(inputEmail)){
+            Toast.makeText(this, "Enter email!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(TextUtils.isEmpty(inputEmail)){
+            Toast.makeText(this, "Enter password!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         firebaseAuth.signInWithEmailAndPassword(inputEmail,inputPassword).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -70,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                             });
                 }
 
-                if(task.isCanceled()){
+                else {
                     Toast.makeText(LoginActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }

@@ -1,8 +1,5 @@
 package com.example.project_prm392.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,12 +7,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.project_prm392.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -90,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Map<String, Object> userData = new HashMap<>();
-                    userData.put("Name",task.getResult().getUser().getDisplayName());
+                    userData.put("Name", name.getText().toString());
                     userData.put("Email",task.getResult().getUser().getEmail());
                     userData.put("IsAdmin",false);
                     firestore.collection("UserData").document(task.getResult().getUser().getUid())
