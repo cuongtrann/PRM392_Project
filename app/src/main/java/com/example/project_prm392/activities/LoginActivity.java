@@ -1,9 +1,12 @@
 package com.example.project_prm392.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,6 +26,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText email, password;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
+    SharedPreferences sharedPreferences;
+
+    private String autoLogin = "AutoLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,13 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+        sharedPreferences = getSharedPreferences(this.autoLogin, Context.MODE_PRIVATE);
+        boolean isAutoLogin = sharedPreferences.getBoolean("isAutoLogin",true);
+
+        if(firebaseAuth.getCurrentUser() != null && isAutoLogin){
+            Toast.makeText(this, "Already logged in!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         email = findViewById(R.id.et_loginEmail);
         password = findViewById(R.id.et_loginPassword);
@@ -62,6 +75,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    CheckBox isRemember = findViewById(R.id.checkboxRemember);
+                    if(isRemember.isChecked()){
+                        sharedPreferences.edit().putBoolean("isAutoLogin",true);
+                    }else{
+                        sharedPreferences.edit().putBoolean("isAutoLogin",false);
+                    }
                     firestore.collection("UserData")
                             .document(task.getResult().getUser().getUid())
                             .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
