@@ -1,26 +1,21 @@
 package com.example.project_prm392.models;
 
 public class MyCartModel {
-    String name;
+    String productName;
     int price;
-    String color;
-    int size;
+    String size;
     int quantity;
     String image;
 
     public void setName(String name) {
-        this.name = name;
+        this.productName = name;
     }
 
     public void setPrice(int price) {
         this.price = price;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
@@ -32,19 +27,13 @@ public class MyCartModel {
         this.image = image;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
-
     public int getPrice() {
         return price;
     }
-
-    public String getColor() {
-        return color;
-    }
-
-    public int getSize() {
+    public String getSize() {
         return size;
     }
 
@@ -56,10 +45,9 @@ public class MyCartModel {
         return image;
     }
 
-    public MyCartModel(String name, int price, String color, int size, int quantity, String image) {
-        this.name = name;
+    public MyCartModel(String name, int price, String size, int quantity, String image) {
+        this.productName = name;
         this.price = price;
-        this.color = color;
         this.size = size;
         this.quantity = quantity;
         this.image = image;

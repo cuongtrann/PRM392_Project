@@ -14,7 +14,6 @@
             android:layout_height="80dp"
             android:src="@drawable/image1"
             android:scaleType="fitXY"
-            app:shapeAppearanceOverlay="@style/roundImageView"
             android:layout_marginTop="20dp"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +21,7 @@
             android:layout_margin="5dp"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/cart_name"
+                android:id="@+id/product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Apple Watch SE Midnight"
@@ -36,6 +35,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/product_price"
                     android:text="$24"
                     android:layout_marginTop="8dp"
                     android:textSize="14dp"
@@ -45,6 +45,7 @@
                 <ImageButton
                     android:layout_width="35dp"
                     android:layout_height="35dp"
+                    android:id="@+id/delete_cart"
                     android:src="@drawable/delete"
                     android:background="@color/white"
                     android:layout_alignParentEnd="true"
@@ -63,6 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/product_color"
                     android:text="Black"
                     android:layout_marginLeft="5dp"
                     android:textColor="#C3C3C3"
@@ -108,6 +110,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/quantity_cart"
                     android:text="45"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/black"
