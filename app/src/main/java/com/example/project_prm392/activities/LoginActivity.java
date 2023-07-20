@@ -96,8 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Login as user", Toast.LENGTH_SHORT).show();
                                     }
-                                    Intent t = new Intent(LoginActivity.this, ShowCategoryActivity.class);
-                                    startActivity(t);
+                                    ChangeActivity(CartActivity.class);
                                 }
                             });
                 } else {
