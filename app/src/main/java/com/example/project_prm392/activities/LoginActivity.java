@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(this.autoLogin, Context.MODE_PRIVATE);
         boolean isAutoLogin = sharedPreferences.getBoolean("isAutoLogin", true);
 
-        if(firebaseAuth.getCurrentUser() != null && isAutoLogin){
+        if (firebaseAuth.getCurrentUser() != null && isAutoLogin) {
             Toast.makeText(this, "Already logged in!", Toast.LENGTH_SHORT).show();
             ChangeActivity(CartActivity.class);
         }
@@ -99,21 +99,19 @@ public class LoginActivity extends AppCompatActivity {
                                     ChangeActivity(CartActivity.class);
                                 }
                             });
-                }
-
-                else {
+                } else {
                     Toast.makeText(LoginActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void SetBtnSignUpOnClickEvent(){
+    private void SetBtnSignUpOnClickEvent() {
         Button btnSignUp = (Button) findViewById(R.id.buttonSignup);
         btnSignUp.setOnClickListener(v -> OnClickBtnSignUp());
     }
 
-    private void OnClickBtnSignUp(){
+    private void OnClickBtnSignUp() {
         ChangeActivity(SignUpActivity.class);
     }
 
