@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_prm392.R;
+import com.example.project_prm392.category.ShowCategoryActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -95,6 +96,8 @@ public class LoginActivity extends AppCompatActivity {
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Login as user", Toast.LENGTH_SHORT).show();
                                     }
+                                    Intent t = new Intent(LoginActivity.this, ShowCategoryActivity.class);
+                                    startActivity(t);
                                 }
                             });
                 } else {

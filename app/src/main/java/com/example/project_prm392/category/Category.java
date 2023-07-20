@@ -1,14 +1,19 @@
 package com.example.project_prm392.category;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
+    private String image;
     private String name;
     private String type;
-    private String image;
 
-    public Category(String name, String type, String image) {
+    public Category() {
+    }
+
+    public Category(String image, String name, String type) {
+        this.image = image;
         this.name = name;
         this.type = type;
-        this.image = image;
     }
 
     public String getName() {

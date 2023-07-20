@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="6dp"
-        android:paddingRight="6dp">
+        android:paddingRight="6dp"
+        android:paddingBottom="6dp">
 
         <ImageButton
             android:id="@+id/btnBackCate"
@@ -29,7 +30,7 @@
             android:text="Categories"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

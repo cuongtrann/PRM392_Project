@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.project_prm392.R;
 
 import java.util.List;
@@ -33,15 +34,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product = mProducts.get(position);
-        holder.productName.setText(product.getName());
-
-        holder.price.setText(String.valueOf(product.getPrice()));
-        holder.imageView.setImageResource(product.getSrc());
+        Glide.with(mContext).load(mProducts.get(position).getImage()).into(holder.imageView);
+        holder.productName.setText(mProducts.get(position).getName());
+        holder.price.setText("$" + String.valueOf(mProducts.get(position).getUnitPrice()));
     }
 
     @Override
     public int getItemCount() {
         return mProducts.size();
+    }
+
+    public List<Product> getProducts() {
+        return mProducts;
+    }
+
+    public void setProducts(List<Product> mProducts) {
+        this.mProducts = mProducts;
     }
 }

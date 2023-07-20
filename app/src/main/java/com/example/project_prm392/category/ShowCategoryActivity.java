@@ -2,8 +2,12 @@ package com.example.project_prm392.category;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +28,7 @@ public class ShowCategoryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     CategoryAdapter categoryAdapter;
 
+    ImageButton btnBack;
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,13 @@ public class ShowCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_category);
 
         recyclerView = findViewById(R.id.cateRecycleView);
+        btnBack = findViewById(R.id.btnBackCate);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         categories = new ArrayList<>();
 
         db = FirebaseFirestore.getInstance();
@@ -51,10 +63,6 @@ public class ShowCategoryActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-//        for (int i = 0; i < 10; i++) {
-//            categories.add(new Category("Table Wood Pine",10, R.drawable.chair1));
-//        }
 
         categoryAdapter = new CategoryAdapter(categories, ShowCategoryActivity.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
