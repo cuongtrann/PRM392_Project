@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if(firebaseAuth.getCurrentUser() != null && isAutoLogin){
             Toast.makeText(this, "Already logged in!", Toast.LENGTH_SHORT).show();
-            return;
+            ChangeActivity(CartActivity.class);
         }
 
         email = findViewById(R.id.et_loginEmail);
@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                                     else{
                                         Toast.makeText(LoginActivity.this, "Login as user", Toast.LENGTH_SHORT).show();
                                     }
+                                    ChangeActivity(CartActivity.class);
                                 }
                             });
                 }
