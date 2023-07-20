@@ -1,0 +1,52 @@
+<!-- dialog_filter.xml -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/filterLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter By Cost: "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:layout_below="@id/filterLabel"
+        android:id="@+id/editTextMinPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Min Price"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editTextMaxPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextMinPrice"
+        android:layout_marginTop="8dp"
+        android:hint="Max Price"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/buttonSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextMaxPrice"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentEnd="true"
+        android:text="Search" />
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonCancel"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginRight="16dp"-->
+<!--        android:layout_below="@id/editTextMaxPrice"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_toStartOf="@id/buttonSearch"-->
+<!--        android:text="Cancel" />-->
+</RelativeLayout>
