@@ -42,10 +42,10 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(this.autoLogin, Context.MODE_PRIVATE);
         boolean isAutoLogin = sharedPreferences.getBoolean("isAutoLogin", true);
 
-//        if(firebaseAuth.getCurrentUser() != null && isAutoLogin){
-//            Toast.makeText(this, "Already logged in!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        if (firebaseAuth.getCurrentUser() != null && isAutoLogin) {
+            Toast.makeText(this, "Already logged in!", Toast.LENGTH_SHORT).show();
+            ChangeActivity(CartActivity.class);
+        }
 
         email = findViewById(R.id.et_loginEmail);
         password = findViewById(R.id.et_loginPassword);
