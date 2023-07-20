@@ -35,12 +35,15 @@
         </activity>
         
 
+        <activity
+            android:name=".activities.CartActivity"
+            android:exported="true" />
         <activity          
             android:name=".activities.ForgotPasswordActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activities.OrderSuccessActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activities.CheckoutActivity"
             android:exported="true" />

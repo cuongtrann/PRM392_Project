@@ -1,6 +1,8 @@
 package com.example.project_prm392.models;
 
-public class MyCartModel {
+import java.io.Serializable;
+
+public class MyCartModel implements Serializable {
     String productName;
     int price;
     String size;
