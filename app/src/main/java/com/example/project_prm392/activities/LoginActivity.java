@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,48 +39,49 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         sharedPreferences = getSharedPreferences(this.autoLogin, Context.MODE_PRIVATE);
-        boolean isAutoLogin = sharedPreferences.getBoolean("isAutoLogin",true);
+        boolean isAutoLogin = sharedPreferences.getBoolean("isAutoLogin", true);
 
-        if(firebaseAuth.getCurrentUser() != null && isAutoLogin){
-            Toast.makeText(this, "Already logged in!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if(firebaseAuth.getCurrentUser() != null && isAutoLogin){
+//            Toast.makeText(this, "Already logged in!", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
         email = findViewById(R.id.et_loginEmail);
         password = findViewById(R.id.et_loginPassword);
 
         SetBtnLoginOnClickEvent();
         SetBtnSignUpOnClickEvent();
+        SetUpOnClickForgotPassword();
     }
 
-    private void SetBtnLoginOnClickEvent(){
+    private void SetBtnLoginOnClickEvent() {
         Button btnLogin = (Button) findViewById(R.id.buttonLogin);
         btnLogin.setOnClickListener(v -> OnClickBtnLogin());
     }
 
-    private void OnClickBtnLogin(){
+    private void OnClickBtnLogin() {
         String inputEmail = email.getText().toString();
         String inputPassword = password.getText().toString();
 
-        if(TextUtils.isEmpty(inputEmail)){
+        if (TextUtils.isEmpty(inputEmail)) {
             Toast.makeText(this, "Enter email!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(TextUtils.isEmpty(inputEmail)){
+        if (TextUtils.isEmpty(inputEmail)) {
             Toast.makeText(this, "Enter password!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        firebaseAuth.signInWithEmailAndPassword(inputEmail,inputPassword).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(inputEmail, inputPassword).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     CheckBox isRemember = findViewById(R.id.checkboxRemember);
-                    if(isRemember.isChecked()){
-                        sharedPreferences.edit().putBoolean("isAutoLogin",true);
-                    }else{
-                        sharedPreferences.edit().putBoolean("isAutoLogin",false);
+                    if (isRemember.isChecked()) {
+                        sharedPreferences.edit().putBoolean("isAutoLogin", true);
+                    } else {
+                        sharedPreferences.edit().putBoolean("isAutoLogin", false);
                     }
                     firestore.collection("UserData")
                             .document(task.getResult().getUser().getUid())
@@ -87,34 +89,38 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     DocumentSnapshot document = task.getResult();
-                                    boolean isAdmin = (boolean)document.getData().get("IsAdmin");
-                                    if(isAdmin){
+                                    boolean isAdmin = (boolean) document.getData().get("IsAdmin");
+                                    if (isAdmin) {
                                         Toast.makeText(LoginActivity.this, "Login as admin", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else{
+                                    } else {
                                         Toast.makeText(LoginActivity.this, "Login as user", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
-                }
-
-                else {
+                } else {
                     Toast.makeText(LoginActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void SetBtnSignUpOnClickEvent(){
+    private void SetBtnSignUpOnClickEvent() {
         Button btnSignUp = (Button) findViewById(R.id.buttonSignup);
         btnSignUp.setOnClickListener(v -> OnClickBtnSignUp());
     }
 
-    private void OnClickBtnSignUp(){
+    private void OnClickBtnSignUp() {
         ChangeActivity(SignUpActivity.class);
     }
 
-    private void ChangeActivity(Class target){
+    public void SetUpOnClickForgotPassword() {
+        TextView txtForgotPassword = findViewById(R.id.textViewForgotPassword);
+        txtForgotPassword.setOnClickListener(v -> {
+            this.ChangeActivity(ForgotPasswordActivity.class);
+        });
+    }
+
+    private void ChangeActivity(Class target) {
         Intent intent = new Intent(this, target);
         startActivity(intent);
     }
