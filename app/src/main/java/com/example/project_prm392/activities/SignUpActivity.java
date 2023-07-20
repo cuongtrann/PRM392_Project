@@ -81,9 +81,6 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        //TODO: check whether email has existed
-
-
         firebaseAuth.createUserWithEmailAndPassword(inputEmail, inputPassword).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
