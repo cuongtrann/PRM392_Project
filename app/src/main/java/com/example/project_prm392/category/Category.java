@@ -2,13 +2,13 @@ package com.example.project_prm392.category;
 
 public class Category {
     private String name;
-    private int quantity;
-    private int img;
+    private String type;
+    private String image;
 
-    public Category(String name, int quantity, int img) {
+    public Category(String name, String type, String image) {
         this.name = name;
-        this.quantity = quantity;
-        this.img = img;
+        this.type = type;
+        this.image = image;
     }
 
     public String getName() {
@@ -19,19 +19,19 @@ public class Category {
         this.name = name;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getType() {
+        return type;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public int getImg() {
-        return img;
+    public String getImage() {
+        return image;
     }
 
-    public void setImg(int img) {
-        this.img = img;
+    public void setImage(String image) {
+        this.image = image;
     }
 }
