@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -37,17 +38,23 @@
             android:name=".activities.SignUpActivity"
             android:exported="true" />
         <activity
+            android:name=".activities.CartActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".activities.MapActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".activities.LoginActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-       
-
-
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDFLxQ9_q_x7i6hKFMsUQRTAgc1jpicsEk"/>
     </application>
 
 </manifest>

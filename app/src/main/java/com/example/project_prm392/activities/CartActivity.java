@@ -34,6 +34,8 @@ public class CartActivity extends AppCompatActivity {
 
     TextView totalPrice;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,19 +51,19 @@ public class CartActivity extends AppCompatActivity {
         cartModelList.add(myCartModel);
         cartAdapter = new MyCartAdapter(this, cartModelList);
         recyclerView.setAdapter(cartAdapter);
-//        firestore.collection("Cart").document(FirebaseAuth.getInstance().getUid())
-//                .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if(task.isSuccessful()){
-//                            for (DocumentSnapshot doc :task.getResult().getDocuments())
-//                            {
-//                                MyCartModel myCartModel = doc.toObject(MyCartModel.class);
-//
-//                            }
-//                        }
-//                    }
-//                });
+        firestore.collection("Cart").document(FirebaseAuth.getInstance().getUid())
+                .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (DocumentSnapshot doc :task.getResult().getDocuments())
+                            {
+                                MyCartModel myCartModel = doc.toObject(MyCartModel.class);
+
+                            }
+                        }
+                    }
+                });
 
         subTotal.setText("$" + getTotalPrice());
         double total = getTotalPrice() + 5;
