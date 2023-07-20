@@ -11,6 +11,8 @@
     <color name="grey">#E4E6EB</color>
     <color name="black">#242A37</color>
     <color name="blue">#0084FF</color>
+    <color name="dark_gray">#757575</color>
+    <color name="light_gray">#AED3D3D5</color>
     <color name="background_chat">#DDEAF7</color>
     <color name="editButton">#3270FD</color>
 </resources>

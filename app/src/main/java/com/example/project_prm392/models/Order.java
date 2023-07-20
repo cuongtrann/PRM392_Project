@@ -2,23 +2,13 @@ package com.example.project_prm392.models;
 
 public class Order {
 
-    private int orderId;
     private String userId;
 
     private String orderDate;
 
-    public Order(int orderId, String userId, String orderDate) {
-        this.orderId = orderId;
+    public Order(String userId, String orderDate) {
         this.userId = userId;
         this.orderDate = orderDate;
-    }
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
     }
 
     public String getUserId() {

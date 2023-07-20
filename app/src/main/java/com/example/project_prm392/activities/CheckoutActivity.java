@@ -1,5 +1,7 @@
 package com.example.project_prm392.activities;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,15 +14,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.project_prm392.R;
+import com.example.project_prm392.category.Category;
 import com.example.project_prm392.models.MyCartModel;
 import com.example.project_prm392.models.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.time.LocalDate;
@@ -38,7 +44,6 @@ public class CheckoutActivity extends AppCompatActivity {
     Button payment;
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
-    int orderId;
     TextView address;
 
     @Override
@@ -65,71 +70,51 @@ public class CheckoutActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
 
         //get Address form FireBase
-        firestore.collection("UserData")
-                .document(auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        DocumentSnapshot document = task.getResult();
-                        String Address = (String)document.getData().get("Address");
-                        address.setText(Address);
-                    }
-                });
-
-        String id = firestore.collection("Order").
-                document(auth.getUid()).collection("UserData").getId();
-
-        firestore.collection("Order")
-                .document(auth.getUid())
-                .collection("UserData")
-                .orderBy("orderId", Query.Direction.DESCENDING)
-                .limit(1)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            QuerySnapshot snapshot = task.getResult();
-                            if (snapshot != null && !snapshot.isEmpty()) {
-                                DocumentSnapshot document = snapshot.getDocuments().get(0);
-                                int lastOrderId = document.getLong("orderId").intValue();
-                                orderId = lastOrderId + 1; // Update orderId here
-                            } else {
-                                orderId = 1; // Set orderId to 1 if there are no documents
-                            }
-                            Order order = AddOrder(orderId,id);
-                            Map<String, Order> map = new HashMap<>();
-                            map.put("Order", order);
-                            //add order to Firebase
-                            firestore.collection("Order").document(auth.getUid()).collection("UserData").add(map);
-
+        firestore.collection("UserData").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.getId().equals(uId)) {
+                            String Address = (String) document.getData().get("Address");
+                            address.setText(Address);
                         }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        orderId = 1;
-                    }
-                });
-
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.getException());
+                }
+            }
+        });
 
         //Click Button Payment go to OrderSuccessActivity
         payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CheckoutActivity.this, OrderSuccessActivity.class);
-                intent.putExtra("orderId", orderId);
-                startActivity(intent);
+                Order order = AddOrder(uId);
+                Map<String, Object> data = new HashMap<>();
+                data.put("userId", order.getUserId());
+                data.put("orderDate", order.getOrderDate());
+                // Add other order fields to the map
+
+                firestore.collection("Order").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        String orderId = documentReference.getId();
+                        Intent intent = new Intent(CheckoutActivity.this, OrderSuccessActivity.class);
+                        intent.putExtra("orderId", orderId);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }
 
     @NonNull
-    private Order AddOrder(int orderId, String uId) {
+    private Order AddOrder( String uId) {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String time = currentDate.format(formatter);
-        Order order = new Order(orderId, uId, time);
+        Order order = new Order(uId, time);
         return order;
     }
 
