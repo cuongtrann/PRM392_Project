@@ -92,9 +92,11 @@ public class LoginActivity extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     boolean isAdmin = (boolean) document.getData().get("IsAdmin");
                                     if (isAdmin) {
-                                        Toast.makeText(LoginActivity.this, "Login as admin", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(LoginActivity.this, ListUserActivity.class));
+                                        finish();
                                     } else {
-                                        Toast.makeText(LoginActivity.this, "Login as user", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(LoginActivity.this, ListUserActivity.class));
+                                        finish();
                                     }
                                     ChangeActivity(CartActivity.class);
                                 }
