@@ -141,6 +141,7 @@
             </LinearLayout>
 
             <RadioGroup
+                android:id="@+id/rbPaymentOption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="16dp">
@@ -159,7 +160,6 @@
                         android:src="@drawable/baseline_credit_card_24" />
 
                     <RadioButton
-                        android:id="@+id/rbPaymentOption"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Credit Card" />
@@ -184,7 +184,7 @@
                         android:src="@drawable/baseline_account_balance_wallet_24" />
 
                     <RadioButton
-                        android:id="@+id/rbPaymentOption"
+
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Cash On Delivery" />
@@ -209,7 +209,6 @@
                         android:src="@drawable/baseline_payments_24" />
 
                     <RadioButton
-                        android:id="@+id/rbPaymentOption"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Master Card" />
@@ -279,9 +278,10 @@
                     android:text="Shipping fee" />
 
                 <TextView
+                    android:id="@+id/shippingFee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$5" />
+                    />
 
             </LinearLayout>
 
