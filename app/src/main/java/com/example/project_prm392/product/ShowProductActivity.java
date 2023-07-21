@@ -49,6 +49,7 @@ public class ShowProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_product);
+        getSupportActionBar().hide();
 
         Intent intent = getIntent();
         Category category = (Category) intent.getSerializableExtra("CATEGORY");
