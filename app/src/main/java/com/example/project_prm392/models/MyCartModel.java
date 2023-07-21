@@ -3,14 +3,23 @@ package com.example.project_prm392.models;
 import java.io.Serializable;
 
 public class MyCartModel implements Serializable {
+
+    String uuid;
     String productName;
     int price;
     String size;
     int quantity;
     String image;
 
-    public void setName(String name) {
-        this.productName = name;
+    public MyCartModel() {
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public void setPrice(int price) {
@@ -29,12 +38,18 @@ public class MyCartModel implements Serializable {
         this.image = image;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
     public String getProductName() {
         return productName;
     }
+
     public int getPrice() {
         return price;
     }
+
     public String getSize() {
         return size;
     }
@@ -47,14 +62,12 @@ public class MyCartModel implements Serializable {
         return image;
     }
 
-    public MyCartModel(String name, int price, String size, int quantity, String image) {
-        this.productName = name;
+    public MyCartModel(String uuid, String productName, int price, String size, int quantity, String image) {
+        this.uuid = uuid;
+        this.productName = productName;
         this.price = price;
         this.size = size;
         this.quantity = quantity;
         this.image = image;
-    }
-
-    public MyCartModel() {
     }
 }

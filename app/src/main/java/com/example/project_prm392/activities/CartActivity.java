@@ -60,7 +60,7 @@ public class CartActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycle_view_cart);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartModelList = new ArrayList<>();
-        cartAdapter = new MyCartAdapter(this, cartModelList);
+        cartAdapter = new MyCartAdapter(this, cartModelList,auth,firestore);
         recyclerView.setAdapter(cartAdapter);
         firestore.collection("Cart").document(auth.getCurrentUser().getUid())
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -84,13 +84,7 @@ public class CartActivity extends AppCompatActivity {
             int totalBill = intent.getIntExtra("totalAmount", 0);
             subTotal.setText("$" + totalBill);
             int shipPrice;
-            if(totalBill >= 100)
-            {
-                shipPrice = 10;
-            }
-            else {
-                shipPrice = 5;
-            }
+            shipPrice = (totalBill == 0) ? 0 : (totalBill >= 100) ? 10 : 5;
             shipPriceText.setText("$" + shipPrice);
             int totalPriceValue = totalBill + shipPrice;
             totalPrice.setText("$" + totalPriceValue);
