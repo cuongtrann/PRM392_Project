@@ -122,6 +122,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                                 .collection("User").document(uuid)
                                 .set(cart)
                                 .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(ProductDetailActivity.this, "Add to cart successfully", Toast.LENGTH_SHORT).show();
                                 })
                                 .addOnFailureListener(e -> {
                                 });
