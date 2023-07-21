@@ -94,13 +94,10 @@ public class LoginActivity extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     boolean isAdmin = (boolean) document.getData().get("IsAdmin");
                                     if (isAdmin) {
-                                        startActivity(new Intent(LoginActivity.this, ListUserActivity.class));
-                                        finish();
+                                        startActivity(new Intent(LoginActivity.this, AdminHomeActivity.class));
                                     } else {
-                                        startActivity(new Intent(LoginActivity.this, ListUserActivity.class));
-                                        finish();
+                                        startActivity(new Intent(LoginActivity.this, ShowCategoryActivity.class));
                                     }
-                                    ChangeActivity(CartActivity.class);
                                 }
                             });
                 } else {

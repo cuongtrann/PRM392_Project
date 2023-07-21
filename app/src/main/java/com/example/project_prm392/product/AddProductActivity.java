@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class AddProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+        getSupportActionBar().hide();
 
         Button buttonLoadCSV = findViewById(R.id.buttonLoadCSV);
         buttonLoadCSV.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +66,14 @@ public class AddProductActivity extends AppCompatActivity {
 
                 addProductToFirebase(product);
                 Toast.makeText(AddProductActivity.this, "Đã thêm sản phẩm lên Firebase", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ImageButton btnReturn = findViewById(R.id.btnBackAddProduct);
+        btnReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
