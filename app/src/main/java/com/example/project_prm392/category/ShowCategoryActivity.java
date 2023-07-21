@@ -43,6 +43,7 @@ public class ShowCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_category);
+        getSupportActionBar().hide();
 
         firebaseAuth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.cateRecycleView);

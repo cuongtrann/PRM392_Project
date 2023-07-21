@@ -46,6 +46,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityProductDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportActionBar().hide();
+
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         final Object obj = getIntent().getSerializableExtra("detailed");
