@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project_prm392.R;
+import com.example.project_prm392.activities.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -28,13 +30,15 @@ public class ShowCategoryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     CategoryAdapter categoryAdapter;
 
-    ImageButton btnBack;
+    ImageButton btnBack, btnLogout;
+    FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_category);
 
+        firebaseAuth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.cateRecycleView);
         btnBack = findViewById(R.id.btnBackCate);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +47,8 @@ public class ShowCategoryActivity extends AppCompatActivity {
                 finish();
             }
         });
+        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(v -> this.OnClickBtnLogout());
         categories = new ArrayList<>();
 
         db = FirebaseFirestore.getInstance();
@@ -69,5 +75,13 @@ public class ShowCategoryActivity extends AppCompatActivity {
         recyclerView.setAdapter(categoryAdapter);
 
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void OnClickBtnLogout(){
+        firebaseAuth.signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+        Toast.makeText(this, "Logged out!", Toast.LENGTH_SHORT).show();
     }
 }

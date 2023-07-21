@@ -15,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_prm392.R;
+import com.example.project_prm392.category.Category;
 import com.example.project_prm392.category.ShowCategoryActivity;
+import com.example.project_prm392.product.AddProductActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -92,17 +94,14 @@ public class LoginActivity extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     boolean isAdmin = (boolean) document.getData().get("IsAdmin");
                                     if (isAdmin) {
-                                        startActivity(new Intent(LoginActivity.this, ListUserActivity.class));
-                                        finish();
+                                        startActivity(new Intent(LoginActivity.this, AdminHomeActivity.class));
                                     } else {
-                                        startActivity(new Intent(LoginActivity.this, ListUserActivity.class));
-                                        finish();
+                                        startActivity(new Intent(LoginActivity.this, ShowCategoryActivity.class));
                                     }
-                                    ChangeActivity(CartActivity.class);
                                 }
                             });
                 } else {
-                    Toast.makeText(LoginActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Email or password was incorrect", Toast.LENGTH_SHORT).show();
                 }
             }
         });

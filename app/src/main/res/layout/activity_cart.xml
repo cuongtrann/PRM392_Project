@@ -17,19 +17,16 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_edit"
+        <ImageButton
+            android:id="@+id/buttonCheckOut"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="-10dp"
-            android:layout_marginRight="-15dp"
-            android:text="Edit"
-            android:textAllCaps="false"
-            android:textColor="@color/editButton"
-            android:textSize="17dp" />
+            android:layout_marginRight="-25dp"
+            android:src="@drawable/baseline_shopping_cart_checkout_24"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_close"

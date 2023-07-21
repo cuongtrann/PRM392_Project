@@ -11,13 +11,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.project_prm392.R;
 import com.example.project_prm392.adapters.MyCartAdapter;
+import com.example.project_prm392.category.ShowCategoryActivity;
 import com.example.project_prm392.models.MyCartModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,10 +48,14 @@ public class CartActivity extends AppCompatActivity {
     Button checkOut;
 
     List<MyCartModel> cart;
-    TextView shipPriceText;
+	TextView shipPriceText;
 
     int totalPriceValue, totalBill;
     int shipPrice;
+
+    Button close_button;
+
+    ImageButton icon_checkOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +65,7 @@ public class CartActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
 
         LocalBroadcastManager.getInstance(this)
-                .registerReceiver(mMessageReceiver, new IntentFilter("MyTotalAmount"));
+                .registerReceiver(mMessageReceiver,new IntentFilter("MyTotalAmount"));
 
         shipPriceText = findViewById(R.id.text_shipping_fee);
         subTotal = findViewById(R.id.text_subtotal);
@@ -69,14 +75,15 @@ public class CartActivity extends AppCompatActivity {
         checkOut = findViewById(R.id.checkout_button);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartModelList = new ArrayList<>();
-        cartAdapter = new MyCartAdapter(this, cartModelList, auth, firestore);
+        cartAdapter = new MyCartAdapter(this, cartModelList,auth,firestore);
         recyclerView.setAdapter(cartAdapter);
         firestore.collection("Cart").document(auth.getCurrentUser().getUid())
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot doc : task.getResult().getDocuments()) {
+                        if(task.isSuccessful()){
+                            for (DocumentSnapshot doc :task.getResult().getDocuments())
+                            {
                                 MyCartModel myCartModel = doc.toObject(MyCartModel.class);
                                 cartModelList.add(myCartModel);
                                 cartAdapter.notifyDataSetChanged();
@@ -114,6 +121,8 @@ public class CartActivity extends AppCompatActivity {
             quantityCart.setText(quantityText);
         }
     };
+
+
 
 
 }
