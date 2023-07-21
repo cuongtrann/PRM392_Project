@@ -45,7 +45,7 @@ public class CartActivity extends AppCompatActivity {
 
     TextView totalPrice;
 
-    Button checkOut;
+//    Button checkOut;
 
     List<MyCartModel> cart;
 	TextView shipPriceText;
@@ -72,7 +72,7 @@ public class CartActivity extends AppCompatActivity {
         totalPrice = findViewById(R.id.text_total);
         quantityCart = findViewById(R.id.quantityCart);
         recyclerView = findViewById(R.id.recycle_view_cart);
-        checkOut = findViewById(R.id.checkout_button);
+//        checkOut = findViewById(R.id.checkout_button);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartModelList = new ArrayList<>();
         cartAdapter = new MyCartAdapter(this, cartModelList,auth,firestore);

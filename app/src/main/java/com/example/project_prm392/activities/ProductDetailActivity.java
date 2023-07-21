@@ -52,6 +52,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
 
+    int totalQuantity = 1;
+
 
 
     @Override
@@ -75,6 +77,25 @@ public class ProductDetailActivity extends AppCompatActivity {
             binding.detailedDesc.setText(product.getDescription());
         }
 
+        binding.addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(totalQuantity < 10){
+                    totalQuantity++;
+                    binding.quantityText.setText(totalQuantity + "");
+                }
+            }
+        });
+
+        binding.removeItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(totalQuantity > 1){
+                    totalQuantity--;
+                    binding.quantityText.setText(totalQuantity + "");
+                }
+            }
+        });
         binding.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,15 +110,23 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         Calendar calForDate = Calendar.getInstance();
 
-        MyCartModel cart = new MyCartModel()
+        MyCartModel cart = new MyCartModel("",product.getName(), (int) product.getUnitPrice(),"M",totalQuantity, product.getImage());
 
         firestore.collection("Cart").document(auth.getCurrentUser().getUid())
-                .collection("User").add(product).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .collection("User").add(cart).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        String
+                        String uuid = documentReference.getId();
+                        cart.setUuid(uuid);
+                        firestore.collection("Cart").document(auth.getCurrentUser().getUid())
+                                .collection("User").document(uuid)
+                                .set(cart)
+                                .addOnSuccessListener(aVoid -> {
+                                })
+                                .addOnFailureListener(e -> {
+                                });
                     }
-                })
+                });
 
     }
 

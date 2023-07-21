@@ -249,6 +249,7 @@
             app:srcCompat ="@drawable/baseline_remove_24"
             android:layout_gravity="center_vertical"/>
         <TextView
+            android:id="@+id/quantity_text"
             android:layout_width="35dp"
             android:gravity="center"
             android:layout_height="match_parent"
