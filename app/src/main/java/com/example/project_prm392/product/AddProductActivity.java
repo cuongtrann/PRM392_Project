@@ -78,7 +78,7 @@ public class AddProductActivity extends AppCompatActivity {
         });
     }
     private void readData(){
-        InputStream is = getResources().openRawResource(R.raw.data);
+        InputStream is = getResources().openRawResource(R.raw.shelfs);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))
         );

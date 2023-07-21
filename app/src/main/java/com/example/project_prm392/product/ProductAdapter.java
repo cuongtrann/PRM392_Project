@@ -1,6 +1,7 @@
 package com.example.project_prm392.product;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.project_prm392.R;
+import com.example.project_prm392.activities.ProductDetailActivity;
 
 import java.util.List;
 
@@ -37,6 +39,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ViewHolder> {
         Glide.with(mContext).load(mProducts.get(position).getImage()).into(holder.imageView);
         holder.productName.setText(mProducts.get(position).getName());
         holder.price.setText("$" + String.valueOf(mProducts.get(position).getUnitPrice()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ProductDetailActivity.class);
+                intent.putExtra("detailed", mProducts.get(position));
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
