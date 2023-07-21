@@ -18,6 +18,7 @@ import com.example.project_prm392.R;
 import com.example.project_prm392.category.Category;
 import com.example.project_prm392.category.ShowCategoryActivity;
 import com.example.project_prm392.product.AddProductActivity;
+import com.example.project_prm392.product.ShowProductActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -46,7 +47,10 @@ public class LoginActivity extends AppCompatActivity {
 
         if (firebaseAuth.getCurrentUser() != null && isAutoLogin) {
             Toast.makeText(this, "Already logged in!", Toast.LENGTH_SHORT).show();
-            ChangeActivity(CartActivity.class);
+            ChangeActivity(ShowCategoryActivity.class);
+        } else {
+            ChangeActivity(AdminHomeActivity.class);
+
         }
 
         email = findViewById(R.id.et_loginEmail);
