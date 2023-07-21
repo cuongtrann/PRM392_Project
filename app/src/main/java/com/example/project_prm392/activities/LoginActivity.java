@@ -15,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_prm392.R;
+import com.example.project_prm392.category.Category;
 import com.example.project_prm392.category.ShowCategoryActivity;
+import com.example.project_prm392.product.AddProductActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
