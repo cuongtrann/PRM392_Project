@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
                 } else {
-                    Toast.makeText(LoginActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Email or password was incorrect", Toast.LENGTH_SHORT).show();
                 }
             }
         });
