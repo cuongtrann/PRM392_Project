@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.project_prm392.R;
 import com.example.project_prm392.adapters.MyCartAdapter;
+import com.example.project_prm392.category.Category;
 import com.example.project_prm392.category.ShowCategoryActivity;
 import com.example.project_prm392.models.MyCartModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -64,6 +65,14 @@ public class CartActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
+        close_button = findViewById(R.id.button_close);
+        close_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartActivity.this, ShowCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mMessageReceiver,new IntentFilter("MyTotalAmount"));
 
@@ -110,13 +119,14 @@ public class CartActivity extends AppCompatActivity {
         icon_checkOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(CartActivity.this , CheckoutActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("cart", (Serializable) cartModelList);
-//                intent.putExtra("subTotalPrice", String.valueOf(getTotalPrice()));
-//                intent.putExtra("totalPrice", String.valueOf(total));
-//                intent.putExtras(bundle);
-//                startActivity(intent);
+                Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("cart", (Serializable) cartModelList);
+                intent.putExtra("subTotalPrice", String.valueOf(totalBill));
+                intent.putExtra("totalPrice", String.valueOf(totalPriceValue));
+                intent.putExtra("shipPrice", String.valueOf(shipPrice));
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
