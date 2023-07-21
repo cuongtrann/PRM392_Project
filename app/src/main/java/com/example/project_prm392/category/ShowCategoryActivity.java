@@ -38,7 +38,7 @@ public class ShowCategoryActivity extends AppCompatActivity {
 
     ImageButton cartButton;
 
-    ImageButton location;
+    ImageButton location, cartHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +83,16 @@ public class ShowCategoryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        cartHome = findViewById(R.id.btnCartHome);
+        cartHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShowCategoryActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         location = findViewById(R.id.btnLocation);
         location.setOnClickListener(new View.OnClickListener() {
