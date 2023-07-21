@@ -105,6 +105,20 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        icon_checkOut = findViewById(R.id.buttonCheckOut);
+        icon_checkOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(CartActivity.this , CheckoutActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("cart", (Serializable) cartModelList);
+//                intent.putExtra("subTotalPrice", String.valueOf(getTotalPrice()));
+//                intent.putExtra("totalPrice", String.valueOf(total));
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+            }
+        });
     }
 
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
