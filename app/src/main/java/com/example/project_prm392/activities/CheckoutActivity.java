@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.project_prm392.R;
@@ -46,6 +47,8 @@ public class CheckoutActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     TextView address, shippingFee;
 
+    ImageButton backButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,15 @@ public class CheckoutActivity extends AppCompatActivity {
             shippingFee.setText(ship);
             List<MyCartModel> cartList = (List<MyCartModel>) extra.getSerializable("cart");
         }
+
+        backButton = findViewById(R.id.btn_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CheckoutActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
 
         auth = FirebaseAuth.getInstance();
         String uId = auth.getUid();
