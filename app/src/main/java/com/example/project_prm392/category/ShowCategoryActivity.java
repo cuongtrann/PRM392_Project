@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project_prm392.R;
+import com.example.project_prm392.activities.CartActivity;
 import com.example.project_prm392.activities.LoginActivity;
+import com.example.project_prm392.activities.MapActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +35,10 @@ public class ShowCategoryActivity extends AppCompatActivity {
     ImageButton btnLogout;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
+
+    ImageButton cartButton;
+
+    ImageButton location;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +74,24 @@ public class ShowCategoryActivity extends AppCompatActivity {
         recyclerView.setAdapter(categoryAdapter);
 
         recyclerView.setLayoutManager(layoutManager);
+
+        cartButton = findViewById(R.id.btnCartHome);
+        cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShowCategoryActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        location = findViewById(R.id.btnLocation);
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShowCategoryActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void OnClickBtnLogout(){
