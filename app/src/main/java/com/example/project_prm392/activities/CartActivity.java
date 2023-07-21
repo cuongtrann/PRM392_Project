@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +41,10 @@ public class CartActivity extends AppCompatActivity {
 
     TextView totalPrice;
 
-    TextView shipPriceText;
+    Button checkOut;
 
+    List<MyCartModel> cart;
+	TextView shipPriceText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,7 @@ public class CartActivity extends AppCompatActivity {
         totalPrice = findViewById(R.id.text_total);
         quantityCart = findViewById(R.id.quantityCart);
         recyclerView = findViewById(R.id.recycle_view_cart);
+        checkOut = findViewById(R.id.checkout_button);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartModelList = new ArrayList<>();
         cartAdapter = new MyCartAdapter(this, cartModelList,auth,firestore);
@@ -76,6 +80,19 @@ public class CartActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        checkOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this , CheckoutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("cart", (Serializable) cartModelList);
+                intent.putExtra("subTotalPrice", String.valueOf(getTotalPrice()));
+                intent.putExtra("totalPrice", String.valueOf(total));
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
