@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.project_prm392.R;
 
@@ -16,7 +17,7 @@ import com.example.project_prm392.R;
  * create an instance of this fragment.
  */
 public class DescriptionFragment extends Fragment {
-
+    TextView descTxt;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +62,13 @@ public class DescriptionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_description, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_description, container, false);
+
+        descTxt = rootView.findViewById(R.id.detailed_desc);
+        return rootView;
+    }
+
+    public void updateDesc(String desc){
+        descTxt.setText(desc);
     }
 }

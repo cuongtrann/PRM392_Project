@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (firebaseAuth.getCurrentUser() != null && isAutoLogin) {
             Toast.makeText(this, "Already logged in!", Toast.LENGTH_SHORT).show();
-            ChangeActivity(CartActivity.class);
+            ChangeActivity(ListUserActivity.class);
         }
 
         email = findViewById(R.id.et_loginEmail);
