@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText name, email, password, cfPassword;
+    EditText name, email, address, password, cfPassword;
     Button btnSignUp, btnLogin;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
@@ -40,12 +40,13 @@ public class SignUpActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
-        name = findViewById(R.id.et_name);
-        email = findViewById(R.id.et_email);
-        password = findViewById(R.id.et_password);
-        cfPassword = findViewById(R.id.et_confirmPassword);
-        btnSignUp = findViewById(R.id.btn_signup);
-        btnLogin = findViewById(R.id.btn_login);
+        this.name = findViewById(R.id.et_name);
+        this.email = findViewById(R.id.et_email);
+        this.address = findViewById(R.id.et_address);
+        this.password = findViewById(R.id.et_password);
+        this.cfPassword = findViewById(R.id.et_confirmPassword);
+        this.btnSignUp = findViewById(R.id.btn_signup);
+        this.btnLogin = findViewById(R.id.btn_login);
 
         btnSignUp.setOnClickListener(view -> {
             OnClickBtnSignUp();
@@ -58,6 +59,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void OnClickBtnSignUp() {
         String inputName = name.getText().toString();
         String inputEmail = email.getText().toString();
+        String inputAddress = address.getText().toString();
         String inputPassword = password.getText().toString();
         String inputCfPassword = cfPassword.getText().toString();
 
@@ -68,6 +70,11 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(inputEmail)) {
             Toast.makeText(this, "Enter email!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(TextUtils.isEmpty(inputAddress)){
+            Toast.makeText(this, "Enter address", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -89,11 +96,12 @@ public class SignUpActivity extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(inputEmail, inputPassword).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Map<String, Object> userData = new HashMap<>();
                     userData.put("Name", name.getText().toString());
-                    userData.put("Email",task.getResult().getUser().getEmail());
-                    userData.put("IsAdmin",false);
+                    userData.put("Email", task.getResult().getUser().getEmail());
+                    userData.put("IsAdmin", false);
+                    userData.put("Address", address.getText().toString());
                     User user = new User(FirebaseAuth.getInstance().getUid(), task.getResult().getUser().getEmail(), inputPassword, name.getText().toString(), "false");
                     databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(user);
                     firestore.collection("UserData").document(task.getResult().getUser().getUid())
