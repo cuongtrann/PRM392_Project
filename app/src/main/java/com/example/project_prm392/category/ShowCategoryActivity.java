@@ -30,7 +30,7 @@ public class ShowCategoryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     CategoryAdapter categoryAdapter;
 
-    ImageButton btnBack, btnLogout;
+    ImageButton btnLogout;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
     @Override
@@ -40,13 +40,6 @@ public class ShowCategoryActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.cateRecycleView);
-        btnBack = findViewById(R.id.btnBackCate);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> this.OnClickBtnLogout());
         categories = new ArrayList<>();
