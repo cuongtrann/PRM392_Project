@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.project_prm392.R;
+import com.example.project_prm392.category.ShowCategoryActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,7 +38,7 @@ public class OrderSuccessActivity extends AppCompatActivity {
         continute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderSuccessActivity.this , LoginActivity.class);
+                Intent intent = new Intent(OrderSuccessActivity.this , ShowCategoryActivity.class);
                 startActivity(intent);
             }
         });

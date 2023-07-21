@@ -44,7 +44,7 @@ public class CheckoutActivity extends AppCompatActivity {
     Button payment;
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
-    TextView address;
+    TextView address, shippingFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class CheckoutActivity extends AppCompatActivity {
         total = findViewById(R.id.total);
         payment = findViewById(R.id.payment);
         address = findViewById(R.id.address);
+        shippingFee = findViewById(R.id.shippingFee);
 
         Bundle extra = getIntent().getExtras();
         if (extra != null) {
@@ -62,6 +63,8 @@ public class CheckoutActivity extends AppCompatActivity {
             subTotal.setText("$" + subTotalPrice);
             String totalPrice = extra.getString("totalPrice");
             total.setText(totalPrice);
+            String ship = extra.getString("shipPrice");
+            shippingFee.setText(ship);
             List<MyCartModel> cartList = (List<MyCartModel>) extra.getSerializable("cart");
         }
 
@@ -105,6 +108,24 @@ public class CheckoutActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+
+                //Get cartId to Delete
+                firestore.collection("Cart").document(auth.getCurrentUser().getUid()).
+                        collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                                        firestore.collection("Cart").document(auth.getCurrentUser().getUid()).
+                                                collection("User").document(doc.getId()).delete();
+                                    }
+                                } else {
+                                    Log.w(TAG, "Error getting documents.", task.getException());
+                                }
+                            }
+                        });
+
+
             }
         });
     }
